@@ -40,7 +40,7 @@ const Home = ({ id, navigator }) => {
 	const auth = () => new Promise((resolve) => {
 		vkConnect.sendPromise("VKWebAppGetAuthToken", {
 			app_id: 7172940,
-			scope: "friends"
+			scope: ""
 		})
 			.then((result) => resolve(result.access_token))
 			.catch(() => auth());
