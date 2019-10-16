@@ -12,8 +12,8 @@ import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import Icon24Linked from "@vkontakte/icons/dist/24/linked";
 import Icon24LinkCircle from "@vkontakte/icons/dist/24/link_circle";
 import Icon16Lock from "@vkontakte/icons/dist/16/lock";
-import Icon24Share from '@vkontakte/icons/dist/24/share';
-import Icon24Delete from '@vkontakte/icons/dist/24/delete';
+import Icon24Share from "@vkontakte/icons/dist/24/share";
+import Icon24Delete from "@vkontakte/icons/dist/24/delete";
 
 const LinkInfo = ({ id, onClose, header, navigator }) => {
 	const link = navigator.params.link || {};
