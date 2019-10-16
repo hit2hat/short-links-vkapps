@@ -160,11 +160,12 @@ const Home = ({ id, navigator }) => {
 											{link.access_key ? <Icon16Lock fill="var(--text_secondary)"/> : null}
 										</span>
 									}
-									description={"Создано: " + new Date(link.timestamp * 1000).toLocaleString()}
-									indicator={
+									description={
 										<span style={{ display: "flex", alignItems: "center" }}>
 											<Icon24Poll fill="var(--accent)"/>
 											<span>{link.views}</span>
+											<span style={{ margin: "0 3px", color: "var(--text_primary)" }}>|</span>
+											<span>{link.url.slice(0, 28) + (link.url.length > 28 ? "..." : "")}</span>
 										</span>
 									}
 									onClick={() => navigator.showModal("link-info", {
