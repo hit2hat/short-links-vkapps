@@ -1,4 +1,5 @@
 import React from "react";
+import vkConnect from "@vkontakte/vk-connect";
 import FireEvent from "../utils/FireEvent";
 
 import ModalPage from "@vkontakte/vkui/dist/components/ModalPage/ModalPage";
@@ -11,6 +12,8 @@ import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import Icon24Linked from "@vkontakte/icons/dist/24/linked";
 import Icon24LinkCircle from "@vkontakte/icons/dist/24/link_circle";
 import Icon16Lock from "@vkontakte/icons/dist/16/lock";
+import Icon24Share from '@vkontakte/icons/dist/24/share';
+import Icon24Delete from '@vkontakte/icons/dist/24/delete';
 
 const LinkInfo = ({ id, onClose, header, navigator }) => {
 	const link = navigator.params.link || {};
@@ -72,15 +75,26 @@ const LinkInfo = ({ id, onClose, header, navigator }) => {
 						indicator={link.views}
 					/>
 				</List>
-				<Button
-					size="xl"
-					onClick={() => {
-						deleteLink(link.key);
-						navigator.hideModal();
-					}}
-				>
-					Удалить
-				</Button>
+				<div style={{ display: "grid", gridRowGap: 10, marginTop: 25 }}>
+					<Button
+						before={<Icon24Share/>}
+						size="xl"
+						onClick={() => vkConnect.send("VKWebAppShare", {"link": link.short_url})}
+					>
+						Поделиться
+					</Button>
+					<Button
+						before={<Icon24Delete/>}
+						size="xl"
+						level="destructive"
+						onClick={() => {
+							deleteLink(link.key);
+							navigator.hideModal();
+						}}
+					>
+						Удалить
+					</Button>
+				</div>
 			</Div>
 		</ModalPage>
 	);
