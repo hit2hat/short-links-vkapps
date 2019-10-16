@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env PORT=10888 react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [],
   "author": "",
+  "homepage": "https://hit2hat.github.io/short-links-vkapps/",
   "license": "MIT",
   "devDependencies": {
     "cross-env": "^5.2.1",
@@ -22,6 +24,7 @@
     "babel-eslint": "^10.0.3",
     "chalk": "^2.4.2",
     "core-js": "^3.3.2",
+    "gh-pages": "^2.1.1",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
