@@ -113,15 +113,19 @@ const Home = ({ id, navigator }) => {
 			}
 		})
 			.then((result) => {
-				setLinks([
-					{
-						...result.response,
-						timestamp: Math.floor(Date.now() / 1000),
-						views: 0
-					},
-					...links.filter((x) => x.key !== result.response.key)
-				]);
-				setUrlForm("");
+				if (links.findIndex((x) => x.key === result.response.key) === -1) {
+					setLinks([
+						{
+							...result.response,
+							timestamp: Math.floor(Date.now() / 1000),
+							views: 0
+						},
+						...links
+					]);
+					setUrlForm("");
+				} else {
+					setError("Ссылка уже сокращена");
+				}
 			})
 			.catch(() => {
 				setError("Введите корректную ссылку");
