@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import vkConnect from "@vkontakte/vk-connect";
+import fireEvent from "../utils/FireEvent";
 
 import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
 import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
@@ -20,6 +21,8 @@ import Checkbox from "@vkontakte/vkui/dist/components/Checkbox/Checkbox";
 import Icon24Linked from "@vkontakte/icons/dist/24/linked";
 import Icon24View from '@vkontakte/icons/dist/24/view';
 import Icon16Lock from "@vkontakte/icons/dist/16/lock";
+import CellButton from "@vkontakte/vkui/dist/components/CellButton/CellButton";
+import Icon24Bug from '@vkontakte/icons/dist/24/bug';
 
 const smartRound = (number) => {
 	if (number < 1000) {
@@ -155,6 +158,14 @@ const Home = ({ id, navigator }) => {
 			<PanelHeader>Короткие ссылки</PanelHeader>
 
 			<PullToRefresh onRefresh={() => loadLinks(accessToken)} isFetching={!loaded}>
+				<CellButton
+					before={<Icon24Bug/>}
+					align="center"
+					style={{ background: "var(--background_content)" }}
+					onClick={() => fireEvent("https://vk.me/reactapps")}
+				>
+					Сообщить об ошибке
+				</CellButton>
 				<Group title="Сократить ссылку">
 						<FormLayout>
 							<FormLayoutGroup>
