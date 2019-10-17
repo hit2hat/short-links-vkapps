@@ -10,7 +10,7 @@ import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
 import Icon24Linked from "@vkontakte/icons/dist/24/linked";
 
 const Welcome = ({ id, navigator }) => (
-	<Panel id={id} theme="white" centered header={false}>
+	<Panel id={id} theme="white" centered>
 		<Div style={{ display: "flex", flexDirection: "column", textAlign: "center", alignItems: "center" }}>
 			<Avatar type="app" size={60} style={{ background: "var(--accent)" }}>
 				<Icon24Linked fill="white"/>
