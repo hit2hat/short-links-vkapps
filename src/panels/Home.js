@@ -40,20 +40,20 @@ const Home = ({ id, navigator }) => {
 	const [ urlForm, setUrlForm ] = useState("");
 	const [ onlyMy, setOnlyMy ] = useState(false);
 
-	const auth = () => new Promise((resolve) => {
-		vkConnect.sendPromise("VKWebAppGetAuthToken", {
-			app_id: 7172940,
-			scope: ""
-		})
-			.then((result) => resolve(result.access_token))
-			.catch(() => auth());
-	});
-
 	useEffect(() => {
 		if (window.is_app_user === false) {
 			navigator.goPage("welcome");
 		} else {
 			if (!window.access_token) {
+				const auth = () => new Promise((resolve) => {
+					vkConnect.sendPromise("VKWebAppGetAuthToken", {
+						app_id: 7172940,
+						scope: ""
+					})
+						.then((result) => resolve(result.access_token))
+						.catch(() => auth());
+				});
+
 				auth()
 					.then((token) => {
 						setAccessToken(token);
