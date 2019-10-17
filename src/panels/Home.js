@@ -99,7 +99,11 @@ const Home = ({ id, navigator }) => {
 		}
 
 		if (!isValidUrl(link)) {
-			return setError("Некорретная ссылка");
+			if (isValidUrl("https://" + link)) {
+				link = "https://" + link;
+			} else {
+				return setError("Некорретная ссылка");
+			}
 		}
 
 		navigator.showLoader();
