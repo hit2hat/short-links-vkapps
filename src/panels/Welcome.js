@@ -15,7 +15,7 @@ const Welcome = ({ id, navigator }) => (
 			<Avatar type="app" size={60} style={{ background: "var(--accent)" }}>
 				<Icon24Linked fill="white"/>
 			</Avatar>
-			<h1 style={{ marginBottom: 0 }}>Сокращение ссылок</h1>
+			<h1 style={{ marginBottom: 0 }}>Короткие ссылки</h1>
 			<p style={{ marginTop: 15, marginBottom: 5 }}>
 				В этом сервисе Вы можете сделать из длинной и сложной ссылки простую.
 				Такие ссылки удобнее использовать в Ваших записях и сообщениях.
