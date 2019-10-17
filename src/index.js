@@ -12,9 +12,11 @@ connect.send("VKWebAppInit");
 connect.subscribe(({ detail: { type, data }}) => {
 	if (type === "VKWebAppUpdateConfig") {
 		const schemeAttribute = document.createAttribute("scheme");
-		schemeAttribute.value = data.scheme ? data.scheme : "client_light";
+		schemeAttribute.value = data.scheme ? data.scheme : "bright_light";
 		document.body.attributes.setNamedItem(schemeAttribute);
 	}
 });
+
+window.is_app_user = new URL(window.location.href).searchParams.get("vk_is_app_user") === "1";
 
 ReactDOM.render(<App />, document.getElementById("root"));

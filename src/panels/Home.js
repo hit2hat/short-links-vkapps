@@ -7,7 +7,6 @@ import Group from "@vkontakte/vkui/dist/components/Group/Group";
 import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
 import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
 import List from "@vkontakte/vkui/dist/components/List/List";
-import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import Spinner from "@vkontakte/vkui/dist/components/Spinner/Spinner";
 import PullToRefresh from "@vkontakte/vkui/dist/components/PullToRefresh/PullToRefresh";
@@ -18,8 +17,20 @@ import Input from "@vkontakte/vkui/dist/components/Input/Input";
 import Checkbox from "@vkontakte/vkui/dist/components/Checkbox/Checkbox";
 
 import Icon24Linked from "@vkontakte/icons/dist/24/linked";
-import Icon24Poll from "@vkontakte/icons/dist/24/poll";
+import Icon24View from '@vkontakte/icons/dist/24/view';
 import Icon16Lock from "@vkontakte/icons/dist/16/lock";
+
+const smartRound = (number) => {
+	if (number < 1000) {
+		return number;
+	}
+
+	if (number < 1000000) {
+		return Math.floor( (number / 1000) * 10 ) / 10 + "K";
+	}
+
+	return Math.floor( (number / 1000000) * 10 ) / 10 + "M";
+};
 
 const Home = ({ id, navigator }) => {
 	const [ accessToken, setAccessToken ] = useState(null);
@@ -29,14 +40,6 @@ const Home = ({ id, navigator }) => {
 	const [ urlForm, setUrlForm ] = useState("");
 	const [ onlyMy, setOnlyMy ] = useState(false);
 
-	useEffect(() => {
-		auth()
-			.then((token) => {
-				setAccessToken(token);
-				loadLinks(token);
-			});
-	}, []);
-
 	const auth = () => new Promise((resolve) => {
 		vkConnect.sendPromise("VKWebAppGetAuthToken", {
 			app_id: 7172940,
@@ -45,6 +48,23 @@ const Home = ({ id, navigator }) => {
 			.then((result) => resolve(result.access_token))
 			.catch(() => auth());
 	});
+
+	useEffect(() => {
+		if (window.is_app_user === false) {
+			navigator.goPage("welcome");
+		} else {
+			if (!window.access_token) {
+				auth()
+					.then((token) => {
+						setAccessToken(token);
+						loadLinks(token);
+					});
+			} else {
+				setAccessToken(window.access_token);
+				loadLinks(window.access_token);
+			}
+		}
+	}, []);
 
 	const loadLinks = (accessToken) => {
 		setLoaded(false);
@@ -101,19 +121,6 @@ const Home = ({ id, navigator }) => {
 			<PanelHeader>Короткие ссылки</PanelHeader>
 
 			<PullToRefresh onRefresh={() => loadLinks(accessToken)} isFetching={!loaded}>
-				<Group>
-					<Div style={{ display: "flex", flexDirection: "column", textAlign: "center", alignItems: "center" }}>
-						<Avatar type="app" size={60} style={{ background: "var(--accent)" }}>
-							<Icon24Linked fill="white"/>
-						</Avatar>
-						<h1 style={{ marginBottom: 0 }}>Сокращение ссылок</h1>
-						<p style={{ marginTop: 15, marginBottom: 5 }}>
-							В этом сервисе Вы можете сделать из длинной и сложной ссылки простую.
-							Такие ссылки удобнее использовать в Ваших записях и сообщениях.
-						</p>
-					</Div>
-				</Group>
-
 				<Group title="Сократить ссылку">
 						<FormLayout>
 							<FormLayoutGroup>
@@ -152,7 +159,7 @@ const Home = ({ id, navigator }) => {
 									before={
 										<Avatar type="app" style={{ background: "var(--accent)" }}>
 											<Icon24Linked fill="white"/>
-										</Avatar>
+							 			</Avatar>
 									}
 									children={
 										<span style={{ display: "flex", alignItems: "center" }}>
@@ -160,14 +167,13 @@ const Home = ({ id, navigator }) => {
 											{link.access_key ? <Icon16Lock fill="var(--text_secondary)"/> : null}
 										</span>
 									}
-									description={
+									indicator={
 										<span style={{ display: "flex", alignItems: "center" }}>
-											<Icon24Poll fill="var(--accent)"/>
-											<span>{link.views}</span>
-											<span style={{ margin: "0 3px", color: "var(--text_primary)" }}>|</span>
-											<span>{link.url.slice(0, 28) + (link.url.length > 28 ? "..." : "")}</span>
+											<Icon24View fill="var(--text_secondary)"/>
+											<span style={{ marginLeft: 3 }}>{smartRound(link.views)}</span>
 										</span>
 									}
+									description={link.url.slice(0, 28) + (link.url.length > 28 ? "..." : "")}
 									onClick={() => navigator.showModal("link-info", {
 										link,
 										deleteLink

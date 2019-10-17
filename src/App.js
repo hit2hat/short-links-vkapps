@@ -3,6 +3,7 @@ import { Stack, Page } from "vkui-navigator/dist";
 
 import Home from "./panels/Home";
 import LinkInfo from "./panels/LinkInfo";
+import Welcome from "./panels/Welcome";
 
 const App = () => (
 	<Stack
@@ -16,6 +17,9 @@ const App = () => (
 	>
 		<Page id="main" activePanel="home">
 			<Home id="home"/>
+		</Page>
+		<Page id="welcome" activePanel="welcome">
+			<Welcome id="welcome"/>
 		</Page>
 	</Stack>
 );
