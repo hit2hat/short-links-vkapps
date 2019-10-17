@@ -119,7 +119,7 @@ const Home = ({ id, navigator }) => {
 						timestamp: Math.floor(Date.now() / 1000),
 						views: 0
 					},
-					...links
+					...links.filter((x) => x.key !== result.response.key)
 				]);
 				setUrlForm("");
 			})
