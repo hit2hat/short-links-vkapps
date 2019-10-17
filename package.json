@@ -29,7 +29,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "vkui-navigator": "^1.2.1"
+    "vkui-navigator": "^1.3.2"
   },
   "browserslist": {
     "production": [

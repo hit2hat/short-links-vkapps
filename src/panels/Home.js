@@ -13,6 +13,7 @@ import PullToRefresh from "@vkontakte/vkui/dist/components/PullToRefresh/PullToR
 
 import FormLayout from "@vkontakte/vkui/dist/components/FormLayout/FormLayout";
 import FormLayoutGroup from "@vkontakte/vkui/dist/components/FormLayoutGroup/FormLayoutGroup";
+import FormStatus from "@vkontakte/vkui/dist/components/FormStatus/FormStatus";
 import Input from "@vkontakte/vkui/dist/components/Input/Input";
 import Checkbox from "@vkontakte/vkui/dist/components/Checkbox/Checkbox";
 
@@ -32,6 +33,15 @@ const smartRound = (number) => {
 	return Math.floor( (number / 1000000) * 10 ) / 10 + "M";
 };
 
+const isValidUrl = (string) => {
+	try {
+		new URL(string);
+		return true;
+	} catch (_) {
+		return false;
+	}
+};
+
 const Home = ({ id, navigator }) => {
 	const [ accessToken, setAccessToken ] = useState(null);
 	const [ links, setLinks ] = useState([]);
@@ -39,6 +49,7 @@ const Home = ({ id, navigator }) => {
 
 	const [ urlForm, setUrlForm ] = useState("");
 	const [ onlyMy, setOnlyMy ] = useState(false);
+	const [ error, setError ] = useState(null);
 
 	useEffect(() => {
 		if (window.is_app_user === false) {
@@ -81,6 +92,16 @@ const Home = ({ id, navigator }) => {
 	};
 
 	const addLink = (link, onlyMy) => {
+		setError(null);
+
+		if (link.length === 0) {
+			return setError("Введите ссылку");
+		}
+
+		if (!isValidUrl(link)) {
+			return setError("Некорретная ссылка");
+		}
+
 		navigator.showLoader();
 		vkConnect.sendPromise("VKWebAppCallAPIMethod", {
 			"method": "utils.getShortLink",
@@ -91,15 +112,20 @@ const Home = ({ id, navigator }) => {
 				"access_token": accessToken
 			}
 		})
-			.then((result) => setLinks([
-				{
-					...result.response,
-					timestamp: Math.floor(Date.now() / 1000),
-					views: 0
-				},
-				...links
-			]))
-			.catch((e) => console.error(JSON.stringify(e)))
+			.then((result) => {
+				setLinks([
+					{
+						...result.response,
+						timestamp: Math.floor(Date.now() / 1000),
+						views: 0
+					},
+					...links
+				]);
+				setUrlForm("");
+			})
+			.catch(() => {
+				setError("Введите корректную ссылку");
+			})
 			.finally(() => navigator.hideLoader());
 	};
 
@@ -124,6 +150,11 @@ const Home = ({ id, navigator }) => {
 				<Group title="Сократить ссылку">
 						<FormLayout>
 							<FormLayoutGroup>
+								{error && <FormStatus
+									state="error"
+									title="Ошибка"
+									children={error}
+								/>}
 								<Input
 									placeholder="Ваша ссылка"
 									value={urlForm}
@@ -141,7 +172,6 @@ const Home = ({ id, navigator }) => {
 								size="xl"
 								onClick={() => {
 									addLink(urlForm, onlyMy);
-									setUrlForm("");
 								}}
 							>
 								Сократить

@@ -17,6 +17,6 @@ connect.subscribe(({ detail: { type, data }}) => {
 	}
 });
 
-window.is_app_user = new URL(window.location.href).searchParams.get("vk_is_app_user") === "1";
+window.is_app_user = ["localhost:10888", "192.168.1.141:10888"].indexOf(new URL(window.location.href).host) === -1 ? new URL(window.location.href).searchParams.get("vk_is_app_user") === "1" : true;
 
 ReactDOM.render(<App />, document.getElementById("root"));
