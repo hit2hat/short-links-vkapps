@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3f20eedd31bb3125685385fb0461eb18",
+    "revision": "d1e423f0a6ed020ba3cfe71a8a0bc9ce",
     "url": "/short-links-vkapps/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/short-links-vkapps/static/js/2.9565a787.chunk.js"
   },
   {
-    "revision": "9584f71c614f348762bc",
-    "url": "/short-links-vkapps/static/js/main.5f055ce4.chunk.js"
+    "revision": "95036edffbceb5996f39",
+    "url": "/short-links-vkapps/static/js/main.e8a63bbe.chunk.js"
   },
   {
     "revision": "016042071b3047a63747",
