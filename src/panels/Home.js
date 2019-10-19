@@ -130,6 +130,13 @@ const Home = ({ id, navigator }) => {
 						},
 						...links
 					]);
+					console.log("New link: " + JSON.stringify({
+						userInput: {
+							link,
+							onlyMy
+						},
+						apiResponse: result.response,
+					}));
 					setUrlForm("");
 				} else {
 					setError("Ссылка уже сокращена");
