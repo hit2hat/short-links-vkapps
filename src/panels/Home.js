@@ -10,6 +10,7 @@ import List from "@vkontakte/vkui/dist/components/List/List";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import Spinner from "@vkontakte/vkui/dist/components/Spinner/Spinner";
 import PullToRefresh from "@vkontakte/vkui/dist/components/PullToRefresh/PullToRefresh";
+import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
 
 import FormLayout from "@vkontakte/vkui/dist/components/FormLayout/FormLayout";
 import FormLayoutGroup from "@vkontakte/vkui/dist/components/FormLayoutGroup/FormLayoutGroup";
@@ -189,36 +190,43 @@ const Home = ({ id, navigator }) => {
 
 				<Group title="Мои ссылки">
 					{loaded ?
-						<List>
-							{links.map((link) => (
-								<Cell
-									expandable
-									key={link.key}
-									before={
-										<Avatar type="app" style={{ background: "var(--accent)" }}>
-											<Icon24Linked fill="white"/>
-							 			</Avatar>
-									}
-									children={
-										<span style={{ display: "flex", alignItems: "center" }}>
-											<span style={{ marginRight: 3 }}>{link.short_url}</span>
-											{link.access_key ? <Icon16Lock fill="var(--text_secondary)"/> : null}
-										</span>
-									}
-									indicator={
-										<span style={{ display: "flex", alignItems: "center" }}>
-											<Icon24View fill="var(--text_secondary)"/>
-											<span style={{ marginLeft: 3 }}>{smartRound(link.views)}</span>
-										</span>
-									}
-									description={link.url.slice(0, 28) + (link.url.length > 28 ? "..." : "")}
-									onClick={() => navigator.showModal("link-info", {
-										link,
-										deleteLink
-									})}
+						links.length > 0
+							?
+								<List>
+									{links.map((link) => (
+										<Cell
+											expandable
+											key={link.key}
+											before={
+												<Avatar type="app" style={{ background: "var(--accent)" }}>
+													<Icon24Linked fill="white"/>
+												</Avatar>
+											}
+											children={
+												<span style={{ display: "flex", alignItems: "center" }}>
+													<span style={{ marginRight: 3 }}>{link.short_url}</span>
+													{link.access_key ? <Icon16Lock fill="var(--text_secondary)"/> : null}
+												</span>
+											}
+											indicator={
+												<span style={{ display: "flex", alignItems: "center" }}>
+													<Icon24View fill="var(--text_secondary)"/>
+													<span style={{ marginLeft: 3 }}>{smartRound(link.views)}</span>
+												</span>
+											}
+											description={link.url.slice(0, 28) + (link.url.length > 28 ? "..." : "")}
+											onClick={() => navigator.showModal("link-info", {
+												link,
+												deleteLink
+											})}
+										/>
+									))}
+								</List>
+							:
+								<Placeholder
+									title="Список ссылок пуст"
+									children="Создаваемые ссылки будут появлятся в этой секции"
 								/>
-							))}
-						</List>
 					: <div style={{ paddingBottom: 25 }}><Spinner/></div>}
 				</Group>
 			</PullToRefresh>
