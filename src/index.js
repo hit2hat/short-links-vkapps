@@ -6,6 +6,7 @@ import connect from "@vkontakte/vk-connect";
 import App from "./App";
 
 import "@vkontakte/vkui/dist/vkui.css";
+import "./style.css";
 
 // Init VK Mini App
 connect.send("VKWebAppInit");
