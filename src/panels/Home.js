@@ -163,36 +163,36 @@ const Home = ({ id, navigator }) => {
 
 			<PullToRefresh onRefresh={() => loadLinks(accessToken)} isFetching={!loaded}>
 				<Group title="Сократить ссылку">
-						<FormLayout>
-							<FormLayoutGroup>
-								{error && <FormStatus
-									state="error"
-									title="Ошибка"
-									children={error}
-								/>}
-								<Input
-									placeholder="Ваша ссылка"
-									value={urlForm}
-									onChange={(e) => urlForm.length < 255 ? setUrlForm(e.currentTarget.value) : null}
-								/>
-								<Checkbox
-									style={{ marginTop: 10 }}
-									value={onlyMy}
-									onChange={() => setOnlyMy(!onlyMy)}
-								>
-									Статистика видна только мне
-								</Checkbox>
-							</FormLayoutGroup>
-							<Button
-								size="xl"
-								onClick={() => {
-									addLink(urlForm, onlyMy);
-								}}
-								style={{ cursor: "pointer" }}
+					<FormLayout>
+						<FormLayoutGroup>
+							{error && <FormStatus
+								state="error"
+								title="Ошибка"
+								children={error}
+							/>}
+							<Input
+								placeholder="Ваша ссылка"
+								value={urlForm}
+								onChange={(e) => urlForm.length < 255 ? setUrlForm(e.currentTarget.value) : null}
+							/>
+							<Checkbox
+								style={{ marginTop: 10 }}
+								value={onlyMy}
+								onChange={() => setOnlyMy(!onlyMy)}
 							>
-								Сократить
-							</Button>
-						</FormLayout>
+								Статистика видна только мне
+							</Checkbox>
+						</FormLayoutGroup>
+						<Button
+							size="xl"
+							onClick={() => {
+								addLink(urlForm, onlyMy);
+							}}
+							style={{ cursor: "pointer" }}
+						>
+							Сократить
+						</Button>
+					</FormLayout>
 				</Group>
 
 				<Group title="Мои ссылки">
@@ -205,7 +205,7 @@ const Home = ({ id, navigator }) => {
 											expandable
 											key={link.key}
 											before={
-												<Avatar type="app" style={{ background: "var(--accent)" }}>
+												<Avatar type="app" style={{ background: "var(--accent)" }} size={40}>
 													<Icon24Linked fill="white"/>
 												</Avatar>
 											}
