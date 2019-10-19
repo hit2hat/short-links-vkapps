@@ -28,7 +28,7 @@ const LinkInfo = ({ id, onClose, header, navigator }) => {
 			<Div style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
 				<Avatar
 					type="image"
-					size={80}
+					size={60}
 					style={{ background: "var(--accent)" }}
 				>
 					<Icon24Linked fill="white"/>
@@ -50,6 +50,30 @@ const LinkInfo = ({ id, onClose, header, navigator }) => {
 			</Div>
 
 			<Div>
+				<div style={{ display: "flex", marginBottom: 25 }}>
+					<Button
+						before={<Icon24Share/>}
+						size="l"
+						stretched
+						onClick={() => vkConnect.send("VKWebAppShare", {"link": link.short_url})}
+						style={{ cursor: "pointer", marginRight: 10 }}
+					>
+						Поделиться
+					</Button>
+					<Button
+						before={<Icon24Delete/>}
+						level="destructive"
+						size="l"
+						stretched
+						onClick={() => {
+							deleteLink(link.key);
+							navigator.hideModal();
+						}}
+						style={{ cursor: "pointer" }}
+					>
+						Удалить
+					</Button>
+				</div>
 				<List>
 					<Cell
 						children="Создано"
@@ -75,28 +99,6 @@ const LinkInfo = ({ id, onClose, header, navigator }) => {
 						indicator={link.views}
 					/>
 				</List>
-				<div style={{ display: "grid", gridRowGap: 10, marginTop: 25 }}>
-					<Button
-						before={<Icon24Share/>}
-						size="xl"
-						onClick={() => vkConnect.send("VKWebAppShare", {"link": link.short_url})}
-						style={{ cursor: "pointer" }}
-					>
-						Поделиться
-					</Button>
-					<Button
-						before={<Icon24Delete/>}
-						size="xl"
-						level="destructive"
-						onClick={() => {
-							deleteLink(link.key);
-							navigator.hideModal();
-						}}
-						style={{ cursor: "pointer" }}
-					>
-						Удалить
-					</Button>
-				</div>
 			</Div>
 		</ModalPage>
 	);
