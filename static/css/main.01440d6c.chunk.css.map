@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,mBACI,qBAAiB,CAAjB,oBAAiB,CAAjB,gBAAiB,CACjB,wBAAyB,CACzB,0BAA2B,CAC3B,uCACJ","file":"main.01440d6c.chunk.css","sourcesContent":["a, div, img, p, button {\n    user-select: none;\n    -webkit-user-select: none;\n    -webkit-touch-callout: none;\n    -webkit-tap-highlight-color: transparent;\n}"]}
