@@ -166,7 +166,7 @@ const Home = ({ id, navigator }) => {
 								<Input
 									placeholder="Ваша ссылка"
 									value={urlForm}
-									onChange={(e) => setUrlForm(e.currentTarget.value)}
+									onChange={(e) => urlForm.length < 255 ? setUrlForm(e.currentTarget.value) : null}
 								/>
 								<Checkbox
 									style={{ marginTop: 10 }}
