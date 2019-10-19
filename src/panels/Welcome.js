@@ -25,6 +25,7 @@ const Welcome = ({ id, navigator }) => (
 			<Div>
 				<Button
 					size="xl"
+					style={{ cursor: "pointer" }}
 					onClick={() => {
 						vkConnect.sendPromise("VKWebAppGetAuthToken", {
 							app_id: 7172940,

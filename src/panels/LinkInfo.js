@@ -80,6 +80,7 @@ const LinkInfo = ({ id, onClose, header, navigator }) => {
 						before={<Icon24Share/>}
 						size="xl"
 						onClick={() => vkConnect.send("VKWebAppShare", {"link": link.short_url})}
+						style={{ cursor: "pointer" }}
 					>
 						Поделиться
 					</Button>
@@ -91,6 +92,7 @@ const LinkInfo = ({ id, onClose, header, navigator }) => {
 							deleteLink(link.key);
 							navigator.hideModal();
 						}}
+						style={{ cursor: "pointer" }}
 					>
 						Удалить
 					</Button>

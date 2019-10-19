@@ -47,6 +47,7 @@ const Home = ({ id, navigator }) => {
 	const [ accessToken, setAccessToken ] = useState(null);
 	const [ links, setLinks ] = useState([]);
 	const [ loaded, setLoaded ] = useState(false);
+	const [ isRequest, setIsRequest ] = useState(false);
 
 	const [ urlForm, setUrlForm ] = useState("");
 	const [ onlyMy, setOnlyMy ] = useState(false);
@@ -93,6 +94,7 @@ const Home = ({ id, navigator }) => {
 	};
 
 	const addLink = (link, onlyMy) => {
+		if (isRequest) return;
 		setError(null);
 
 		if (link.length === 0) {
@@ -107,6 +109,7 @@ const Home = ({ id, navigator }) => {
 			}
 		}
 
+		setIsRequest(true);
 		navigator.showLoader();
 		vkConnect.sendPromise("VKWebAppCallAPIMethod", {
 			"method": "utils.getShortLink",
@@ -135,7 +138,10 @@ const Home = ({ id, navigator }) => {
 			.catch(() => {
 				setError("Введите корректную ссылку");
 			})
-			.finally(() => navigator.hideLoader());
+			.finally(() => {
+				navigator.hideLoader();
+				setIsRequest(false);
+			})
 	};
 
 	const deleteLink = (key) => {
@@ -182,6 +188,7 @@ const Home = ({ id, navigator }) => {
 								onClick={() => {
 									addLink(urlForm, onlyMy);
 								}}
+								style={{ cursor: "pointer" }}
 							>
 								Сократить
 							</Button>
