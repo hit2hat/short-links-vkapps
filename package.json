@@ -18,6 +18,7 @@
     "react-scripts": "^3.2.0"
   },
   "dependencies": {
+    "@sentry/browser": "^5.7.1",
     "@vkontakte/icons": "^1.10.2",
     "@vkontakte/vk-connect": "^1.6.5",
     "@vkontakte/vk-qr": "^2.0.8",
