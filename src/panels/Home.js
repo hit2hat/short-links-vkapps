@@ -134,11 +134,11 @@ const Home = ({ id, navigator }) => {
 				} else {
 					setError("Ссылка уже сокращена");
 				}
+				navigator.hideLoader();
+				setIsRequest(false);
 			})
 			.catch(() => {
 				setError("Введите корректную ссылку");
-			})
-			.finally(() => {
 				navigator.hideLoader();
 				setIsRequest(false);
 			})
