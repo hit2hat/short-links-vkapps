@@ -232,7 +232,7 @@ const Home = ({ id, navigator }) => {
 							:
 								<Placeholder
 									title="Список ссылок пуст"
-									children="Создаваемые ссылки будут появлятся в этой секции"
+									children="Создаваемые ссылки будут появляться в этой секции"
 								/>
 					: <div style={{ paddingBottom: 25 }}><Spinner/></div>}
 				</Group>
