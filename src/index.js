@@ -21,11 +21,11 @@ Sentry.init({
 const launchParams = new URL(window.location.href);
 
 Sentry.setUser({
-	"id": launchParams.searchParams.get("vk_user_id"),
-	"platform": launchParams.searchParams.get("vk_platform")
+	"id": launchParams.searchParams && launchParams.searchParams.get("vk_user_id"),
+	"platform": launchParams.searchParams && launchParams.searchParams.get("vk_platform")
 });
 
-window.is_app_user = ["localhost:10888", "192.168.1.141:10888"].indexOf(launchParams.host) === -1 ? launchParams.searchParams.get("vk_is_app_user") === "1" : true;
+window.is_app_user = ["localhost:10888", "192.168.1.141:10888"].indexOf(launchParams.host) === -1 ? launchParams.searchParams && launchParams.searchParams.get("vk_is_app_user") === "1" : true;
 
 // Init VK Mini App
 connect.send("VKWebAppInit");
