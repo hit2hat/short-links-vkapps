@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d9684b06a35a51d78ba33d0bf3de338f",
+    "revision": "f01704db4dc4d5f7ab102e276420781d",
     "url": "/short-links-vkapps/index.html"
   },
   {
