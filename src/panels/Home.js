@@ -34,15 +34,6 @@ const smartRound = (number) => {
 	return Math.floor( (number / 1000000) * 10 ) / 10 + "M";
 };
 
-const isValidUrl = (string) => {
-	try {
-		new URL(string);
-		return true;
-	} catch (_) {
-		return false;
-	}
-};
-
 const Home = ({ id, navigator }) => {
 	const [ accessToken, setAccessToken ] = useState(null);
 	const [ links, setLinks ] = useState([]);
@@ -135,14 +126,6 @@ const Home = ({ id, navigator }) => {
 			return setError("Введите ссылку");
 		}
 
-		if (!isValidUrl(link)) {
-			if (isValidUrl("https://" + link)) {
-				link = "https://" + link;
-			} else {
-				return setError("Некорретная ссылка");
-			}
-		}
-
 		window.is_request = true;
 		navigator.showLoader();
 		vkConnect.send("VKWebAppCallAPIMethod", {
@@ -185,7 +168,7 @@ const Home = ({ id, navigator }) => {
 							<Input
 								placeholder="Ваша ссылка"
 								value={urlForm}
-								onChange={(e) => urlForm.length < 255 ? setUrlForm(e.currentTarget.value) : null}
+								onChange={(e) => setUrlForm(e.currentTarget.value.slice(0, 255).trim())}
 							/>
 							<Checkbox
 								style={{ marginTop: 10 }}
