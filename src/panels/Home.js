@@ -47,19 +47,15 @@ const Home = ({ id, navigator }) => {
 		if (!window.is_request) return;
 
 		if (type === "VKWebAppCallAPIMethodResult") {
-			if (links.findIndex((x) => x.key === data.response.key) === -1) {
-				setLinks((prev) => [
-					{
-						...data.response,
-						timestamp: Math.floor(Date.now() / 1000),
-						views: 0
-					},
-					...prev
-				]);
-				setUrlForm("");
-			} else {
-				setError("Ссылка уже сокращена");
-			}
+			setLinks((prev) => [
+				{
+					...data.response,
+					timestamp: Math.floor(Date.now() / 1000),
+					views: 0
+				},
+				...prev.filter((x) => x.key !== data.response.key)
+			]);
+			setUrlForm("");
 			navigator.hideLoader();
 			window.is_request = false;
 		}
