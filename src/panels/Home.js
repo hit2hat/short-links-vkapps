@@ -47,11 +47,38 @@ const Home = ({ id, navigator }) => {
 	const [ accessToken, setAccessToken ] = useState(null);
 	const [ links, setLinks ] = useState([]);
 	const [ loaded, setLoaded ] = useState(false);
-	const [ isRequest, setIsRequest ] = useState(false);
 
 	const [ urlForm, setUrlForm ] = useState("");
 	const [ onlyMy, setOnlyMy ] = useState(false);
 	const [ error, setError ] = useState(null);
+
+	const onRequestCallback = ({ detail: { type, data }}) => {
+		if (!window.is_request) return;
+
+		if (type === "VKWebAppCallAPIMethodResult") {
+			if (links.findIndex((x) => x.key === data.response.key) === -1) {
+				setLinks((prev) => [
+					{
+						...data.response,
+						timestamp: Math.floor(Date.now() / 1000),
+						views: 0
+					},
+					...prev
+				]);
+				setUrlForm("");
+			} else {
+				setError("Ссылка уже сокращена");
+			}
+			navigator.hideLoader();
+			window.is_request = false;
+		}
+
+		if (type === "VKWebAppCallAPIMethodFailed") {
+			setError("Введите корректную ссылку");
+			navigator.hideLoader();
+			window.is_request = false;
+		}
+	};
 
 	useEffect(() => {
 		if (window.is_app_user === false) {
@@ -77,6 +104,12 @@ const Home = ({ id, navigator }) => {
 				loadLinks(window.access_token);
 			}
 		}
+
+		vkConnect.subscribe(onRequestCallback);
+
+		return () => {
+			vkConnect.unsubscribe(onRequestCallback);
+		};
 	}, []);
 
 	const loadLinks = (accessToken) => {
@@ -90,11 +123,12 @@ const Home = ({ id, navigator }) => {
 			}
 		})
 			.then((result) => setLinks(result.response.items))
+			.catch((e) => console.error(e))
 			.finally(() => setLoaded(true));
 	};
 
 	const addLink = (link, onlyMy) => {
-		if (isRequest) return;
+		if (window.is_request) return;
 		setError(null);
 
 		if (link.length === 0) {
@@ -109,9 +143,9 @@ const Home = ({ id, navigator }) => {
 			}
 		}
 
-		setIsRequest(true);
+		window.is_request = true;
 		navigator.showLoader();
-		vkConnect.sendPromise("VKWebAppCallAPIMethod", {
+		vkConnect.send("VKWebAppCallAPIMethod", {
 			"method": "utils.getShortLink",
 			"params": {
 				"url": link,
@@ -119,29 +153,7 @@ const Home = ({ id, navigator }) => {
 				"v": "5.102",
 				"access_token": accessToken
 			}
-		})
-			.then((result) => {
-				if (links.findIndex((x) => x.key === result.response.key) === -1) {
-					setLinks([
-						{
-							...result.response,
-							timestamp: Math.floor(Date.now() / 1000),
-							views: 0
-						},
-						...links
-					]);
-					setUrlForm("");
-				} else {
-					setError("Ссылка уже сокращена");
-				}
-				navigator.hideLoader();
-				setIsRequest(false);
-			})
-			.catch(() => {
-				setError("Введите корректную ссылку");
-				navigator.hideLoader();
-				setIsRequest(false);
-			})
+		});
 	};
 
 	const deleteLink = (key) => {
