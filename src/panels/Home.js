@@ -101,6 +101,8 @@ const Home = ({ id, navigator }) => {
 
 	const loadLinks = (accessToken) => {
 		setLoaded(false);
+		setError(null);
+		setUrlForm("");
 		vkConnect.sendPromise("VKWebAppCallAPIMethod", {
 			"method": "utils.getLastShortenedLinks",
 			"params": {
