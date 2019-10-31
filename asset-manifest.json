@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/short-links-vkapps/static/css/main.01440d6c.chunk.css",
-    "main.js": "/short-links-vkapps/static/js/main.27d23a2a.chunk.js",
-    "main.js.map": "/short-links-vkapps/static/js/main.27d23a2a.chunk.js.map",
+    "main.js": "/short-links-vkapps/static/js/main.064216bd.chunk.js",
+    "main.js.map": "/short-links-vkapps/static/js/main.064216bd.chunk.js.map",
     "runtime-main.js": "/short-links-vkapps/static/js/runtime-main.1943f01e.js",
     "runtime-main.js.map": "/short-links-vkapps/static/js/runtime-main.1943f01e.js.map",
     "static/css/2.7214840c.chunk.css": "/short-links-vkapps/static/css/2.7214840c.chunk.css",
-    "static/js/2.f59952fe.chunk.js": "/short-links-vkapps/static/js/2.f59952fe.chunk.js",
-    "static/js/2.f59952fe.chunk.js.map": "/short-links-vkapps/static/js/2.f59952fe.chunk.js.map",
+    "static/js/2.cff6c81d.chunk.js": "/short-links-vkapps/static/js/2.cff6c81d.chunk.js",
+    "static/js/2.cff6c81d.chunk.js.map": "/short-links-vkapps/static/js/2.cff6c81d.chunk.js.map",
     "index.html": "/short-links-vkapps/index.html",
-    "precache-manifest.c83119ff2f9f3c6bc0c93e2b573959d7.js": "/short-links-vkapps/precache-manifest.c83119ff2f9f3c6bc0c93e2b573959d7.js",
+    "precache-manifest.fd8c0168b2622d6a7433be4adb42f472.js": "/short-links-vkapps/precache-manifest.fd8c0168b2622d6a7433be4adb42f472.js",
     "service-worker.js": "/short-links-vkapps/service-worker.js",
     "static/css/2.7214840c.chunk.css.map": "/short-links-vkapps/static/css/2.7214840c.chunk.css.map",
     "static/css/main.01440d6c.chunk.css.map": "/short-links-vkapps/static/css/main.01440d6c.chunk.css.map"
@@ -17,8 +17,8 @@
   "entrypoints": [
     "static/js/runtime-main.1943f01e.js",
     "static/css/2.7214840c.chunk.css",
-    "static/js/2.f59952fe.chunk.js",
+    "static/js/2.cff6c81d.chunk.js",
     "static/css/main.01440d6c.chunk.css",
-    "static/js/main.27d23a2a.chunk.js"
+    "static/js/main.064216bd.chunk.js"
   ]
 }
